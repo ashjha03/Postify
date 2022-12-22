@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('./User').schema
 
 const Post = new Schema({
     title: {
@@ -11,6 +12,10 @@ const Post = new Schema({
         required: true
     },
     imgUrl: {
+        type: String,
+        required: true
+    },
+    userName: {
         type: String,
         required: true
     }

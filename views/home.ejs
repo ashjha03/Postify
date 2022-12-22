@@ -25,7 +25,9 @@
                 <div class="flex items-center py-2">
                     <a class="bg-[#333] mr-4 text-white p-2 rounded-xl" href="/post/<%=post._id%>">📚 View Post</a>
                     <form class="my-2" action="/post/<%= post._id%>?_method=DELETE" method="POST" class="delete">
+                        <%   if(user.username == post.userName) { %>
                         <button class="bg-[#333] text-white p-2 rounded-xl">🗑️ Delete </button>
+                        <% } %> 
                     </form>
                 </div>
             </div>

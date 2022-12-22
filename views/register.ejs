@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login - Postify</title>
+</head>
+<body class="bg-[#f4f4f4]">
+    <div class="head text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
+        <a href="/"><h1 class="text-5xl my-2">Postify 📱</h1></a>
+        <h2 class="text-2xl">Want to share your thoughts, here is Postify for you ...</h2>
+    </div>
+
+    <form action="/register" class="container p-5 rounded-xl bg-[#999] h-[65vh] text-lg mx-auto mt-4" method="post">
+        <div class="form-input">
+            <label for="title">Username: </label>
+            <br>
+            <input class="p-3 w-full border border-[#666] rounded-lg" name="username" type="text">
+        </div>
+        <div class="form-input">
+            <label for="title">Email: </label>
+            <br>
+            <input class="p-3 w-full border border-[#666] rounded-lg" name="email" type="email">
+        </div>
+        <div class="form-input">
+            <label for="title">Password: </label>
+            <br>
+            <input class="p-3 w-full border border-[#666] rounded-lg" name="password" type="password">
+        </div>
+        <button class="my-2 bg-[#333] text-white p-2 rounded-xl">Register</button>
+        <a href="/login" class="my-2 bg-[#333] text-white p-[.7rem] ml-2 rounded-xl">Login</a>
+    </form>
+
+    <footer class="text-center p-8 mt-12 bg-white text-lg">
+        <p>Designed & Created By <span>ASHISH JHA</span> ( @ashjha03 )</p>
+    </footer>
+</body>
+</html>

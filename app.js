@@ -2,6 +2,10 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const mongoose = require('mongoose')
+const passport = require('passport')
+const LocalStrategy = require('passport-local')
+const session = require('express-session')
+const User = require('./model/User')
 const methodOverride = require('method-override')
 const Post = require('./model/Schema')
 const dotenv = require('dotenv');
@@ -17,32 +21,63 @@ mongoose.connect(DB)
 
 app.use(methodOverride('_method'))
 
+const sessionConfig = {
+    secret: 'thisshouldbeabettersecret!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+
+app.use(session(sessionConfig));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
 
-app.get('/', async (req, res) => {
+const isLoggedIn = (req, res, next) => {
+    if(!req.isAuthenticated()){
+        return res.render('login')
+    }
+    next();
+}
+
+app.get('/', isLoggedIn, async (req, res) => {
     const posts = await Post.find()
-    res.render('home', {posts})
+    const user = req.user
+    res.render('home', {posts, user})
 })
 
-app.get('/post/:id', async (req, res) => {
+app.get('/post/:id', isLoggedIn, async (req, res) => {
     const {id} = req.params
     const post = await Post.findById(id)
-    res.render('post', {post})
+    const user = req.user
+    res.render('post', {post, user})
 })
 
-app.get('/post/:id/edit', async (req, res) => {
+app.get('/post/:id/edit', isLoggedIn, async (req, res) => {
     const {id} = req.params
     const post = await Post.findById(id)
     res.render('editForm', {post})
 })
 
 app.post('/newPost', async (req, res) => {
-    const data = req.body;
-    const post = new Post(data)
+    const {title, desc, imgUrl} = req.body;
+    const userName = req.user.username
+    const post = new Post({title, desc, imgUrl, userName})
     await post.save()
     res.redirect('/')
 })
@@ -59,6 +94,26 @@ app.delete('/post/:id', async (req, res) => {
     const post = await Post.findById(id)
     await post.delete()
     res.redirect('/')
+})
+
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+
+app.get('/register', (req, res) => {
+    res.render('register')
+})
+
+app.post('/register', async (req, res) => {
+    const {username, email, password} = req.body
+    const user = new User({username, email, password})
+    await User.register(user, password)
+    res.redirect('/login')
+})
+
+app.post('/login', passport.authenticate('local', { failureRedirect: '/login' }), 
+    (req, res) => {
+        res.redirect('/');
 })
 
 app.listen(3000, () => {
