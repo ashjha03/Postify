@@ -7,7 +7,7 @@
     <title>Postify - Share your thoughts</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#f4f4f4]">
+<body class="bg-[#f4f4f4] font-sans">
     <div class="head text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
         <h1 class="text-5xl my-2">Postify 📱</h1>
         <h2 class="text-2xl">Want to share your thoughts, here is Postify for you ...</h2>
@@ -29,6 +29,9 @@
                         <button class="bg-[#333] text-white p-2 rounded-xl">🗑️ Delete </button>
                         <% } %> 
                     </form>
+                </div>
+                <div class="flex flex-row-reverse pb-4 font-bold italic font-serif">
+                    <p>Author: <%= post.userName%></p>
                 </div>
             </div>
             <% } %> 
