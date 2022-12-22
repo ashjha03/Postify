@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>View Post - Postify</title>
+</head>
+<body class="bg-[#f4f4f4]">
+    <div class="head text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
+        <a href="/"><h1 class="text-5xl my-2">Postify 📱</h1></a>
+        <h2 class="text-2xl">Want to share your thoughts, here is Postify for you ...</h2>
+    </div>
+
+    <section class="text-gray-600 body-font overflow-hidden">
+        <div class="container px-5 py-12 mx-auto">
+          <div class="mx-auto">
+            <img alt="ecommerce" class="w-auto mx-auto h-auto object-cover object-center rounded-2xl" src="<%= post.imgUrl %>">
+            <div class="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                <h1 class="text-gray-900 text-3xl title-font font-medium mb-1"><%= post.title%></h1>
+                <h2 class="text-sm title-font text-gray-500 tracking-widest"><%= post._id%></h2>
+                <br>
+              <p class="leading-relaxed"><%= post.desc %> </p>
+              <div class="flex items-center py-2">
+                <a href="/post/<%= post._id%>/edit" class="mr-4">
+                    <button class="flex ml-auto text-white bg-[#333] border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"> Edit</button></a>
+                <form action="/post/<%= post._id%>?_method=DELETE" method="POST" class="delete">
+                    <button class="flex ml-auto text-white bg-[#333] border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">🗑️ Delete</button>
+                </form>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="text-center p-8 bg-white text-lg">
+        <p>Designed & Created By <span>ASHISH JHA</span> ( @ashjha03 )</p>
+    </footer>
+</body>
+</html>

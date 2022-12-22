@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postify - Share your thoughts</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f4f4f4]">
+    <div class="head text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
+        <h1 class="text-5xl my-2">Postify 📱</h1>
+        <h2 class="text-2xl">Want to share your thoughts, here is Postify for you ...</h2>
+    </div>
+
+    <div class=" container p-4 px-8 w-[70vw]">
+        <div class="grid grid-cols-2 gap-8 container">
+            <% for(let post of posts) { %> 
+            <div class="card rounded-2xl shadow-lg w-[30vw] bg-white flex flex-col  items-center">
+                <img class="w-[30vw] h-[60%] rounded-t-2xl" src="<%= post.imgUrl %> " alt="">
+                <div class="text p-4">
+                    <h2 class="font-bold text-xl"><%= post.title %></h2>
+                    <p><%= post.desc.slice(0, 100) %> ...</p>
+                </div>
+                <div class="flex items-center py-2">
+                    <a class="bg-[#333] mr-4 text-white p-2 rounded-xl" href="/post/<%=post._id%>">📚 View Post</a>
+                    <form class="my-2" action="/post/<%= post._id%>?_method=DELETE" method="POST" class="delete">
+                        <button class="bg-[#333] text-white p-2 rounded-xl">🗑️ Delete </button>
+                    </form>
+                </div>
+            </div>
+            <% } %> 
+        </div>
+        <form class="bg-[#999] rounded-xl fixed top-[9rem] p-7 py-2  right-0" action="/newPost" method="post">
+            <div class="heading text-center font-bold text-xl underline my-4">
+                <h1>Post &nbsp;Something &nbsp;New</h1>
+            </div>
+            <div class="form-input mb-3">
+                <label for="title" class="font-bold">Title: </label>
+                <br>
+                <input class="w-full p-2 border border-[#666] rounded-lg" name="title" type="text">
+            </div>
+            <div class="form-input mb-3">
+                <label for="desc" class="font-bold">Description: </label>
+                <br>
+                <textarea class="w-full p-2 border border-[#666] rounded-lg" name="desc" cols="30" rows="10"></textarea>
+            </div>
+            <div class="form-input mb-3">
+                <label for="imgUrl" class="font-bold">Image URL: </label>
+                <br>
+                <input class="w-full p-2 border border-[#666] rounded-lg" name="imgUrl" type="text">
+            </div>
+            <button class="my-2 bg-[#333] text-white p-2 rounded-xl">Post</button>
+        </form>
+    </div>
+
+    <footer class="text-center p-8 bg-white text-lg mt-8">
+        <p>Designed & Created By <span>ASHISH JHA</span> ( @ashjha03 )</p>
+    </footer>
+</body>
+</html>
