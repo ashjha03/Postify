@@ -13,23 +13,25 @@
         <h2 class="text-2xl">Want to share your thoughts, here is Postify for you ...</h2>
     </div>
 
-    <form class="container p-5 rounded-xl bg-[#999] text-lg mx-auto mt-4" action="/post/<%= post._id%>?_method=PUT"" method="post">
-        <div class="form-input">
-            <label for="title">Title: </label>
-            <br>
-            <input value="<%= post.title%>" class="p-3 w-full border border-[#666] rounded-lg" name="title" type="text">
+    <form class="container p-5 rounded-xl bg-[#fff] shadow-lg text-lg mx-auto mt-4" action="/post/<%= post._id%>?_method=PUT"" method="post">
+        <p class="text-center bg-[#f4f4f4] py-2 rounded-lg font-bold">Want to change something in your post <br> Here, you can ...</p>
+        <div class="form-input py-3">
+            <label class="font-bold" for="title">Title: </label>
+            <input value="<%= post.title%>" class="bg-[#f4f4f4] p-3 w-full border border-[#666] rounded-lg" name="title" type="text">
         </div>
-        <div class="form-input">
-            <label for="desc">Description: </label>
-            <br>
-            <textarea class="p-3 w-full border border-[#666] rounded-lg" name="desc" cols="30" rows="10"><%= post.desc%></textarea>
+        <div class="form-input py-3">
+            <label class="font-bold" for="desc">Description: </label>
+            <textarea class="bg-[#f4f4f4] p-3 w-full border border-[#666] rounded-lg" name="desc" cols="30" rows="10"><%= post.desc%></textarea>
         </div>
-        <div class="form-input">
-            <label for="imgUrl">Image URL: </label>
-            <br>
-            <input value="<%= post.imgUrl%>" class="p-3 w-full border border-[#666] rounded-lg" name="imgUrl" type="text">
+        <div class="form-input py-3">
+            <label class="font-bold" for="imgUrl">Image URL: </label>
+            <input value="<%= post.imgUrl%>" class="bg-[#f4f4f4] p-3 w-full border border-[#666] rounded-lg" name="imgUrl" type="text">
         </div>
-        <button class="my-2 bg-[#333] text-white p-2 rounded-xl">Update</button>
+        <button class="my-2 bg-[#333] w-[50%] ml-[21vw] text-white p-2 rounded-xl hover:underline">Update</button>
     </form>
+
+    <footer class="text-center p-8 bg-white text-lg mt-8">
+        <p>Designed & Created By <span>ASHISH JHA</span> ( @ashjha03 )</p>
+    </footer>
 </body>
 </html>
