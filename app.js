@@ -4,7 +4,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
-const session = require('express-session')
+const session = require('cookie-session')
 const User = require('./model/User')
 const methodOverride = require('method-override')
 const Post = require('./model/Schema')
@@ -126,11 +126,9 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/login' })
 })
 
 app.post('/logout', function(req, res, next){
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/');
-    });
-});
+    req.logout()
+    res.redirect('/')
+})
 
 app.listen(3000, () => {
     console.log(`Serving on port 3000`)
