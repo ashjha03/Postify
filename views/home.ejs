@@ -8,9 +8,19 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#f4f4f4] font-sans">
-    <div class="head text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
+    <div class="head relative text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
         <h1 class="text-5xl my-2">Postify 📱</h1>
         <h2 class="text-2xl">Want to share your thoughts, here is Postify for you ...</h2>
+        <%  if(user) { %>
+        <form class="absolute top-2 right-2 px-4" action="/logout" method="post">
+            <button class="bg-red-800 font-bold text-white p-2 px-4 rounded-xl hover:underline">Logout</button>
+        </form>
+        <a class="absolute top-12 right-4 hover:underline bg-[#333] text-white font-bold p-2 rounded-xl mt-2" href="/myPosts">Your Posts</a>
+        <% } else { %> 
+            <form class="absolute top-2 right-2 p-4" action="/login" method="post">
+                <button class="bg-blue-600 font-bold text-white p-2 px-4 rounded-xl hover:underline">Login</button>
+            </form>
+        <% } %> 
     </div>
 
     <div class=" container p-4 px-8 w-[70vw]">
@@ -25,9 +35,9 @@
                 <div class="flex items-center py-2">
                     <a class="bg-[#333] mr-4 text-white p-2 rounded-xl" href="/post/<%=post._id%>">📚 View Post</a>
                     <form class="my-2" action="/post/<%= post._id%>?_method=DELETE" method="POST" class="delete">
-                        <%   if(user.username == post.userName) { %>
-                        <button class="bg-[#333] text-white p-2 rounded-xl">🗑️ Delete </button>
-                        <% } %> 
+                    <%  if(user && user.username == post.userName) { %>
+                        <button class="bg-red-600 text-white p-2 rounded-xl">🗑️ Delete </button>
+                    <% } %> 
                     </form>
                 </div>
                 <div class="flex flex-row-reverse pb-4 font-bold italic font-serif">
@@ -36,6 +46,7 @@
             </div>
             <% } %> 
         </div>
+        
         <form class="bg-[#fff] shadow-lg rounded-xl fixed top-[9rem] p-7 py-2  right-0" action="/newPost" method="post">
             <div class="heading text-center font-bold text-xl underline my-4">
                 <h1>Post &nbsp;Something &nbsp;New</h1>
@@ -55,8 +66,14 @@
                 <br>
                 <input class="w-full p-2 border border-[#666] rounded-lg bg-[#f4f4f4]" name="imgUrl" type="text">
             </div>
-            <button class="my-2 w-full bg-[#333] text-white p-2 rounded-xl">Post</button>
+            <%  if(user) { %>
+                <button class="my-2 w-full bg-[#333] text-white p-2 rounded-xl">Post</button>
+            <% } else { %> 
+                <button disabled class="my-2 w-full bg-[#777] text-white p-2 rounded-xl">🔒 Post</button>
+                <p class="my-2 w-full bg-red-400 text-white text-center p-2 rounded-xl">Please Login  <br> & Enjoy POSTIFY</p>
+            <% } %> 
         </form>
+        
     </div>
 
     <footer class="text-center p-8 bg-white text-lg mt-8">

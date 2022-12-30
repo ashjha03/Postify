@@ -8,11 +8,22 @@
     <title>Edit <%= post.title%></title>
 </head>
 <body class="bg-[#f4f4f4]">
-    <div class="head text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
+    <div class="relative head text-center my-2 py-2 bg-white w-[70vw] mx-auto border rounded-lg">
         <a href="/"><h1 class="text-5xl my-2">Postify 📱</h1></a>
         <h2 class="text-2xl">Want to share your thoughts, here is Postify for you ...</h2>
+        <%  if(user) { %>
+            <form class="absolute top-2 right-2 px-4" action="/logout" method="post">
+                <button class="bg-red-800 font-bold text-white p-2 px-4 rounded-xl hover:underline">Logout</button>
+            </form>
+            <a class="absolute top-12 right-4 hover:underline bg-[#333] text-white font-bold p-2 rounded-xl mt-2" href="/myPosts">Your Posts</a>
+            <% } else { %> 
+                <form class="absolute top-2 right-2 p-4" action="/login" method="post">
+                    <button class="bg-blue-600 font-bold text-white p-2 px-4 rounded-xl hover:underline">Login</button>
+                </form>
+            <% } %> 
     </div>
 
+    <a class="ml-20 my-4 w-[140px] block hover:underline bg-[#333] text-white p-2 rounded-lg" href="/">👈🏻 Back to Home</a>
     <form class="container p-5 rounded-xl bg-[#fff] shadow-lg text-lg mx-auto mt-4" action="/post/<%= post._id%>?_method=PUT"" method="post">
         <p class="text-center bg-[#f4f4f4] py-2 rounded-lg font-bold">Want to change something in your post <br> Here, you can ...</p>
         <div class="form-input py-3">

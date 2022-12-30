@@ -55,13 +55,19 @@ const isLoggedIn = (req, res, next) => {
     next();
 }
 
-app.get('/', isLoggedIn, async (req, res) => {
+app.get('/', async (req, res) => {
     const posts = await Post.find()
     const user = req.user
     res.render('home', {posts, user})
 })
 
-app.get('/post/:id', isLoggedIn, async (req, res) => {
+app.get('/myPosts', isLoggedIn, async (req, res) => {
+    const posts = await Post.find()
+    const user = req.user
+    res.render('myPosts', {posts, user})
+})
+
+app.get('/post/:id', async (req, res) => {
     const {id} = req.params
     const post = await Post.findById(id)
     const user = req.user
@@ -71,7 +77,8 @@ app.get('/post/:id', isLoggedIn, async (req, res) => {
 app.get('/post/:id/edit', isLoggedIn, async (req, res) => {
     const {id} = req.params
     const post = await Post.findById(id)
-    res.render('editForm', {post})
+    const user = req.user
+    res.render('editForm', {post, user})
 })
 
 app.post('/newPost', async (req, res) => {
@@ -97,11 +104,13 @@ app.delete('/post/:id', async (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    res.render('login')
+    const user = req.user
+    res.render('login', {user})
 })
 
 app.get('/register', (req, res) => {
-    res.render('register')
+    const user = req.user
+    res.render('register', {user})
 })
 
 app.post('/register', async (req, res) => {
@@ -115,6 +124,13 @@ app.post('/login', passport.authenticate('local', { failureRedirect: '/login' })
     (req, res) => {
         res.redirect('/');
 })
+
+app.post('/logout', function(req, res, next){
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+});
 
 app.listen(3000, () => {
     console.log(`Serving on port 3000`)
